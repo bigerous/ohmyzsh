@@ -1,0 +1,33 @@
+# maven
+export M2_HOME=/usr/local/apache-maven-3.6.0
+export PATH=$M2_HOME/bin:$PATH
+
+# java
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk/Contents/Home
+
+export PATH="$PATH:$JAVA_HOME/bin"
+
+# java extension
+export CLASSPATH=$CLASSPATH:/Library/Java/Extensions
+
+# jmeter
+export PATH="$PATH:/usr/local/apache-jmeter-3.0/bin/"
+
+# Go
+export GO111MODULE=on
+export PATH="$PATH:/Users/bigerous/go/bin"
+ 
+# dev machine
+alias ssh_dev3='ssh cuidajun.cdj@10.137.69.5'
+alias ssh_dev2='ssh cuidajun.cdj@10.137.69.14'
+alias ssh_sit='ssh cuidajun.cdj@100.81.153.103'
+alias ssh_jump_inc='ssh cuidajun.cdj@login1.cm10.alibaba.org'
+
+alias arthas='/Users/bigerous/work/arthas/as.sh'
+alias jvisualvm='jvisualvm -J-Dorg.graalvm.visualvm.ThreadColorMonitor=#000000'
+
+eval $(thefuck --alias)
+
+function cd () {
+    builtin cd "$@" && ls -F
+    }
