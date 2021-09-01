@@ -110,15 +110,6 @@ setup_ohmyzsh() {
     exit 1
   fi
 
-  git clone -c core.eol=lf -c core.autocrlf=false \
-    -c fsck.zeroPaddedFilemode=ignore \
-    -c fetch.fsck.zeroPaddedFilemode=ignore \
-    -c receive.fsck.zeroPaddedFilemode=ignore \
-    --depth=1 --branch "$BRANCH" "$REMOTE" "$ZSH" || {
-    fmt_error "git clone of oh-my-zsh repo failed"
-    exit 1
-  }
-
   echo
 }
 
@@ -154,10 +145,7 @@ setup_zshrc() {
 
   echo "${GREEN}Using the Oh My Zsh template file and adding it to ~/.zshrc.${RESET}"
 
-  sed "/^export ZSH=/ c\\
-export ZSH=\"$ZSH\"
-" "$ZSH/templates/zshrc.zsh-template" > ~/.zshrc-omztemp
-	mv -f ~/.zshrc-omztemp ~/.zshrc
+  ln -s ~/.oh-my-zsh/.zshrc ~/.zshrc
 
 	echo
 }
@@ -265,27 +253,6 @@ main() {
     exit 1
   fi
 
-  if [ -d "$ZSH" ]; then
-    echo "${YELLOW}The \$ZSH folder already exists ($ZSH).${RESET}"
-    if [ "$custom_zsh" = yes ]; then
-      cat <<EOF
-
-You ran the installer with the \$ZSH setting or the \$ZSH variable is
-exported. You have 3 options:
-
-1. Unset the ZSH variable when calling the installer:
-   $(fmt_code "ZSH= sh install.sh")
-2. Install Oh My Zsh to a directory that doesn't exist yet:
-   $(fmt_code "ZSH=path/to/new/ohmyzsh/folder sh install.sh")
-3. (Caution) If the folder doesn't contain important information,
-   you can just remove it with $(fmt_code "rm -r $ZSH")
-
-EOF
-    else
-      echo "You'll need to remove it if you want to reinstall."
-    fi
-    exit 1
-  fi
 
   setup_ohmyzsh
   setup_zshrc
